@@ -1,7 +1,7 @@
 # esp_google_locator
-Self-localisation of an ESP8266 using the Google Maps API
+Self-localization of an ESP8266 using the Google Maps API
 
-This is a simple proof-of-concept implementation of self-localisation of an ESP using the Google Maps API. If does a scan of the locally visible SSIDs, formats a request to the Google Maps Web Service and receives latitude and longitude of its current location if available. These values are printed, if the request was successful. You can now enter these values in Google Maps in your browser to find the location on the map.
+This is a simple proof-of-concept implementation of self-localization of an ESP using the Google Maps API. If does a scan of the locally visible SSIDs, formats a request to the Google Maps Web Service and receives latitude and longitude of its current location, if available. These values are printed if the request was successful. You can now enter these values in Google Maps in your browser to find the location on the map.
 
 Of course, this all might be done better with a GPS-receiver, but this is much more expensive, requires more energy, and does not work indoors.
 
