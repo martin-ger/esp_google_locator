@@ -74,9 +74,11 @@ int errorCode;
   }
 }
 
-WiFiClientSecure client;
+#define POST_DEBUG 1
 
 String httpsPost(String url, String contentType, String data, int &errorCode) {
+WiFiClientSecure client;
+
   if (client.connect(host, 443)) {
     client.println("POST " + url + " HTTP/1.1");
     client.println("Host: " + (String)host);
@@ -88,15 +90,23 @@ String httpsPost(String url, String contentType, String data, int &errorCode) {
     client.println(data.length());
     client.println();
     client.println(data);
-    delay(50);
-    String response = client.readString();
-
+    
+    String response = "";
+    while (client.connected()) {
+      response = response+client.readString();
+    }
+    response = response+client.readString();
+#ifdef POST_DEBUG    
+    Serial.println("==========");
+    Serial.println(response);
+    Serial.println("==========");
+#endif
     errorCode = response.substring(response.indexOf(' ')+1).toInt();
     if (errorCode == 0) {
       errorCode = 444;
       return "No Response";
     }
-    
+
     int bodypos =  response.indexOf("\r\n\r\n") + 4;
     return response.substring(bodypos);
   }
